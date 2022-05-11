@@ -39,7 +39,7 @@ const takeCard = () => {
 };
 
 // funcion para tomar el valor de la carta
-function cardValue(card) {
+function getCardValue(card) {
 	const value = card.substring(0, card.length - 1);
 	// Solucion mia
 	if (value === 'A') return 11;
@@ -63,10 +63,10 @@ function showResult() {
 	return (result.innerHTML = 'Player 1 wins');
 }
 
-function pcTurn() {
+function handlePcTurn() {
 	do {
 		const card = takeCard();
-		computerPoints += cardValue(card);
+		computerPoints += getCardValue(card);
 		bothCounters[1].innerHTML = computerPoints;
 
 		const cardImg = document.createElement('img');
@@ -88,7 +88,7 @@ modal.addEventListener('click', () => {
 // Turno del jugador
 btnTake.addEventListener('click', () => {
 	const card = takeCard();
-	playerPoints += cardValue(card);
+	playerPoints += getCardValue(card);
 	bothCounters[0].innerHTML = playerPoints;
 
 	const cardImg = document.createElement('img');
@@ -99,19 +99,19 @@ btnTake.addEventListener('click', () => {
 	if (playerPoints > pointsToWin) {
 		btnTake.disabled = true;
 		btnStop.disabled = true;
-		pcTurn(playerPoints);
+		handlePcTurn(playerPoints);
 	}
 
 	if (playerPoints === pointsToWin) {
 		btnTake.disabled = true;
 		btnStop.disabled = true;
-		pcTurn(playerPoints);
+		handlePcTurn(playerPoints);
 	}
 });
 
 //Boton para detener la jugada
 btnStop.addEventListener('click', () => {
-	pcTurn(playerPoints);
+	handlePcTurn(playerPoints);
 
 	btnTake.disabled = true;
 	btnStop.disabled = true;
